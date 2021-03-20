@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("api/v2/items")
-   suspend fun apiDemo(
+    suspend fun apiDemo(
         @Query("page") page: Int,
         @Query("par_page") perPage: Int
     ): Response<Array<QiitaResponse>>
