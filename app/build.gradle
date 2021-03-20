@@ -5,8 +5,13 @@ plugins {
 //    id 'kotlin-kapt'
 //    id 'dagger.hilt.android.plugin'
 }
+apply plugin: 'jacoco'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
+
+jacoco {
+    toolVersion = "0.8.4"
+}
 
 android {
     compileSdkVersion 30
@@ -33,6 +38,7 @@ android {
             minifyEnabled false
             signingConfig signingConfigs.debug
             applicationIdSuffix ".debug"
+            testCoverageEnabled true //jacoco
         }
         release {
             minifyEnabled false
@@ -114,4 +120,24 @@ dependencies {
     androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
     //mock
     androidTestImplementation "io.mockk:mockk:1.9.3"
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports after running tests."
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+    def debugTree = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
+    def mainSrc = "$project.projectDir/src/main/java"
+
+    sourceDirectories.from = files([mainSrc])
+    classDirectories.from = files([debugTree])
+    executionData.from = fileTree(dir: project.buildDir, includes: [
+            'jacoco/testDebugUnitTest.exec',
+            'outputs/code-coverage/connected/*coverage.ec'
+    ])
 }
