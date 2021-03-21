@@ -60,9 +60,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-//    viewBinding {
-//        enabled = true
-//    }
 
     //jacoco用に追加
     packagingOptions {
@@ -154,6 +151,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
     reports {
         xml.enabled = true
         html.enabled = true
+        html.destination file("${buildDir}/jacocoHtml")
     }
 
     def fileFilter = ['**/R.class',

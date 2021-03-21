@@ -39,7 +39,7 @@ class ViewExtensionsTest : Spek({
     describe("View_Extensions.kt#gone") {
         context("normal pattern") {
             it("view is gone") {
-                val result = view.gone()
+                view.gone()
                 verify {
                     view.visibility = View.GONE
                 }

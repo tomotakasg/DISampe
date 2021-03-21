@@ -23,10 +23,6 @@ class QiitaRepositoryTest : Spek({
         mockk<ApiService>()
     }
 
-    val baseRepository by memoized {
-        mockk<BaseRepository>()
-    }
-
     val qiitaRepository by memoized {
         QiitaRepositoryImpl(apiService)
     }
