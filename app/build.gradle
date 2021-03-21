@@ -19,7 +19,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.disample"
-        minSdkVersion 23
+        minSdkVersion 26 //23 内部でinvokeメソッド使っていると、./gradlew :app:jacocoTestReport  で怒られる。。
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -64,9 +64,12 @@ android {
 //        enabled = true
 //    }
 
+    //jacoco用に追加
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
         exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE.md'
+        exclude 'META-INF/LICENSE-notice.md'
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/LICENSE'
@@ -135,6 +138,14 @@ dependencies {
     androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
     //mock
     androidTestImplementation "io.mockk:mockk:1.9.3"
+
+    //jacoco用に追加   強制的にバージョン適用
+    configurations.all {
+        resolutionStrategy {
+            exclude group: "org.jetbrains.kotlinx", module: "kotlinx-coroutines-debug"
+
+        }
+    }
 }
 
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
