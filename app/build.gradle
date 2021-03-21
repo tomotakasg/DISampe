@@ -132,12 +132,12 @@ dependencies {
 
     // todo:testImplementationでもいい
     //spek
-    androidTestImplementation "org.spekframework.spek2:spek-dsl-jvm:$SPEK"
-    androidTestImplementation "org.spekframework.spek2:spek-runner-junit5:$SPEK"
-    androidTestImplementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
-    androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
+    testImplementation "org.spekframework.spek2:spek-dsl-jvm:$SPEK"
+    testImplementation "org.spekframework.spek2:spek-runner-junit5:$SPEK"
+    testImplementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
     //mock
-    androidTestImplementation "io.mockk:mockk:1.9.3"
+    testImplementation "io.mockk:mockk:1.9.3"
 
     //jacoco用に追加   強制的にバージョン適用
     configurations.all {
