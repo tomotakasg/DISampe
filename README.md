@@ -2,6 +2,8 @@
 DaggerHiltSample
 DaggerHiltを試す
 
+sampleすらtypoしててもどうにかなるんだZE
+
 ## その他試し技術
 * viewBinding
 * junit5
